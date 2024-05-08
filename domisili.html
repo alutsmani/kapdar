@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    
+
+    <!-- Tag link untuk favicon -->
+    <link rel="icon" href="Kop.png" type="image/x-icon" />
+    <!-- Tag meta untuk gambar ketika dibagikan di media sosial -->
+    <meta property="og:image" content="https://i.ibb.co/8d3cVFb/BG.png" />
+    
+    <title>Data Kamar</title>
+  </head>
+  <body>
+    <br>
+    <div class="logo-container ">
+        <img src="Kop.png" alt="icon" width="120">
+    </div>    
+    <br>
+    <div class="bg-utama">
+        <h2>Tes Masuk Diniyah</h2>
+
+        <div class="cool-box" id="KotakLogin">
+            <select id="cariDiniyah" name="cariDiniyah" class="form-control mb-2" onchange="loadData()">
+                <option value="Semua">Semua</option>
+                <option value="Isti'dadiyah">Isti'dadiyah</option>
+                <option value="Ula">Ula</option>
+                <option value="Wustha">Wustha</option>
+                <option value="Ulya">Ulya</option>
+                <option value="">Belum Tes</option>
+            </select>
+
+            <!--<p>Dari tanggal - sampai</p>-->
+            <input type="hidden" id="dariTanggal" class="form-control mb-2" placeholder="Dari Tanggal">
+            <input type="hidden" id="sampaiTanggal" class="form-control mb-2" placeholder="Sampai Tanggal" >
+            <p>Cari Nama</p>
+            <input type="text" id="nama" class="form-control mb-2" placeholder="Nama" onchange="handleSearch()">
+            <label id="keterangan"> keterangan </label>
+            <!-- <label id="keteranganBayar"> keterangan bayar</label> -->
+        </div>
+
+        <div id="dataContainer"></div>
+    </div>
+    
+
+     <style>
+
+    </style>
+    
+ 
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    <script src="index.js" async></script>
+   
+  </body>
+</html>
+
