@@ -11,36 +11,43 @@
 </head>
 <body>
 
-  <iframe class="side" src="halaman/domisili.html" height="90%" width="100%" title="Iframe Example"></iframe>
+    <div class="container">
+        <iframe class="iframe" src="halaman/domisili.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 2.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 3.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 4.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 5.html"></iframe>
+    </div>
+
 
     <div class="navigation">
         <ul>
             <li class="list active">
-                <a >
+                <a onclick="moveToFrame(1)">
                     <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                     <span class="text">Home</span>
                 </a>
             </li>
             <li class="list">
-                <a >
+                <a onclick="moveToFrame(2)">
                     <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
-                    <span class="text">Profile</span>
+                    <span class="text" >Profile</span>
                 </a>
             </li>
             <li class="list">
-                <a >
+                <a onclick="moveToFrame(3)">
                     <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span>
                     <span class="text">Mesage</span>
                 </a>
             </li>
             <li class="list">
-                <a >
+                <a onclick="moveToFrame(4)">
                     <span class="icon"><ion-icon name="camera-outline"></ion-icon></span>
                     <span class="text">Photos</span>
                 </a>
             </li>
             <li class="list">
-                <a >
+                <a onclick="moveToFrame(5)">
                     <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
                     <span class="text">Setting</span>
                 </a>
@@ -57,18 +64,56 @@
 
 
     <script>
-        const list = document.querySelectorAll('.list');
-        function activeLink(){
-            list.forEach((item) =>
-            item.classList.remove('active'));
-            this.classList.add('active');
+        let currentIndex = 0;
+        const iframes = document.querySelectorAll('.iframe');
+
+        function moveToFrame(index) {
+            currentIndex = index - 1;
+            updateTransform();
+            updateIndicator();
         }
-        list.forEach((item) =>
-        item.addEventListener('click',activeLink));
+
+        function updateTransform() {
+            const offset = -currentIndex * 20;
+            document.querySelector('.container').style.transform = `translateX(${offset}%)`;
+        }
+
+        function updateIndicator() {
+            const indicators = document.querySelectorAll('.list');
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                moveRight();
+            } else if (event.key === 'ArrowLeft') {
+                moveLeft();
+            }
+        });
+
+        function moveRight() {
+            currentIndex = (currentIndex + 1) % iframes.length;
+            updateTransform();
+            updateIndicator();
+        }
+
+        function moveLeft() {
+            currentIndex = (currentIndex - 1 + iframes.length) % iframes.length;
+            updateTransform();
+            updateIndicator();
+        }
     </script>
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
 
 </body>
 </html>
