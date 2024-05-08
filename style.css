@@ -6,7 +6,7 @@
   font-family: 'Poppins', sans-serif;
 }
 :root {
-  --clr: #222327;
+  --clr: #ffffff;
 }
 body {
   display: flex;
@@ -22,14 +22,14 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 86%;
+  height: 100%;
   border: none; /* Menghapus border bawaan iframe */
 }
 
 
 .navigation {
   height: auto;
-  background: #ffffff;
+  background: #003805;
   position: fixed; /* Mengubah posisi menjadi fixed */
   bottom: 0; /* Memposisikan elemen di bagian bawah layar */
   width: 100%;
@@ -90,7 +90,7 @@ body {
   top: -50%;
   width: 70px;
   height: 70px;
-  background: #29fd53;
+  background: #001b05;
   border-radius: 50%;
   border: 6px solid var(--clr);
   transition: 0.5s;
