@@ -9,22 +9,32 @@
   --clr: #ffffff;
 }
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: var(--clr);
-  max-height: 90%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.side {
-  position: fixed;
-  top: 0;
-  left: 0;
+.container {
+  display: flex;
+  width: 500%;
+  height: 100vh;
+  transition: transform 0.5s ease;
+}
+
+.iframe {
   width: 100%;
   height: 100%;
-  border: none; /* Menghapus border bawaan iframe */
+  border: none;
 }
+
+.button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
 
 
 .navigation {
