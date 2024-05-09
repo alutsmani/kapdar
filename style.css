@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  width: 100%;
 }
 :root {
   --clr: #ffffff;
@@ -17,10 +18,11 @@ body {
 
 .container {
   display: flex;
-  width: 500%;
+  width: 500vw; /* Ubah lebar menjadi 500vw */
   height: 100vh;
   transition: transform 0.5s ease;
 }
+
 
 .iframe {
   width: 100%;
