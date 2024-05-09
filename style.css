@@ -156,3 +156,27 @@ body {
 .navigation ul li:nth-child(5).active ~ .indicator {
   transform: translateX(calc(70px * 4));
 }
+
+/* Responsiveness for Mobile Devices */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .navigation ul {
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .navigation ul li {
+    width: 20vw;
+  }
+  
+  .indicator,
+  .indicator::before,
+  .indicator::after {
+    width: 10px;
+    height: 10px;
+  }
+}
