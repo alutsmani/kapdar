@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- === Coding by Kang Gus Tri | www.belajaritutidaksusah.blogspot.com | IG : @agus_triono08 === -->
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Magic Menu Indicator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <iframe class="iframe" src="halaman/domisili.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 2.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 3.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 4.html"></iframe>
+        <iframe class="iframe" src="halaman/domisili 5.html"></iframe>
+    </div>
+
+    <footer class="footer">
+    
+        <div class="navigation">
+            <ul>
+                <li class="list active">
+                    <a onclick="moveToFrame(1)">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a onclick="moveToFrame(2)">
+                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                        <span class="text" >Profile</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a onclick="moveToFrame(3)">
+                        <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span>
+                        <span class="text">Mesage</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a onclick="moveToFrame(4)">
+                        <span class="icon"><ion-icon name="camera-outline"></ion-icon></span>
+                        <span class="text">Photos</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a onclick="moveToFrame(5)">
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                        <span class="text">Setting</span>
+                    </a>
+                </li>
+                <div class="indicator"></div>
+                
+            </ul>
+        </div>
+    </footer>
+   
+
+
+    <script>
+        let currentIndex = 0;
+        const iframes = document.querySelectorAll('.iframe');
+
+        function moveToFrame(index) {
+            currentIndex = index - 1;
+            updateTransform();
+            updateIndicator();
+        }
+
+        function updateTransform() {
+            const offset = -currentIndex * 20;
+            document.querySelector('.container').style.transform = `translateX(${offset}%)`;
+        }
+
+        function updateIndicator() {
+            const indicators = document.querySelectorAll('.list');
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                moveRight();
+            } else if (event.key === 'ArrowLeft') {
+                moveLeft();
+            }
+        });
+
+        function moveRight() {
+            currentIndex = (currentIndex + 1) % iframes.length;
+            updateTransform();
+            updateIndicator();
+        }
+
+        function moveLeft() {
+            currentIndex = (currentIndex - 1 + iframes.length) % iframes.length;
+            updateTransform();
+            updateIndicator();
+        }
+    </script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script src="script.js" async></script>
+
+</body>
+</html>
