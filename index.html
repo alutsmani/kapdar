@@ -188,7 +188,7 @@
 
         .nokamar {
             font-size: 12px;
-            display:none;
+            display:block;
             
         }
 
@@ -489,7 +489,9 @@
         
                 const noSpan = document.createElement('span');
                 noSpan.classList.add('nokamar');
-                noSpan.textContent = `${item.NoKamar}`;
+                // Memastikan item.NoKamar diperlakukan sebagai string
+                let noKamarString = String(item.NoKamar).padStart(2, '0');
+                noSpan.textContent = noKamarString;
         
                 const idsSpan = document.createElement('span');
                 idsSpan.classList.add('ids');
@@ -626,7 +628,9 @@
 
                 submitButton.addEventListener('click', function() {
                     try {
-                        var headerData = 'IDS=' + item.IDS + '&StatusSantri=' + selectElement.value + '&Daerah=' + input2.value + '&NoKamar=' + input3.value;
+                        let noKamarFormatted = String(input3.value).padStart(2, '0');
+                        var headerData = 'IDS=' + item.IDS + '&StatusSantri=' + selectElement.value + '&Daerah=' + input2.value + '&NoKamar=\'' + noKamarFormatted;
+
                         postJSON(headerData, function(response) {
                             // Tanggapi hasil respons sesuai kebutuhan Anda
                             console.log(response);
@@ -687,4 +691,3 @@
 
   </body>
 </html>
-
