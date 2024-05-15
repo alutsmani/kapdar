@@ -227,7 +227,7 @@ function renderData(data) {
         inputContainer.classList.add('input-container');
 
         const selectElement = document.createElement('select');
-        const options = ["Mukim / Mondok", "Khoriji / Nyulok", "Boyong", "Guru Tugas", "Deleted"];
+        const options = ["Mukim / Mondok", "Khoriji / Nyulok", "Boyong", "Guru Tugas", "Deleted", "Pengurus", "Alumni"];
         // Iterasi melalui array pilihan dan menambahkan setiap pilihan ke dalam select
         options.forEach(option => {
             const optionElement = document.createElement('option');
