@@ -258,7 +258,7 @@ function renderData(data) {
         submitButton.addEventListener('click', function() {
             try {
                 let noKamarFormatted = String(input3.value).padStart(2, '0');
-                var headerData = 'IDS=' + item.IDS + '&StatusSantri=' + selectElement.value + '&Daerah=' + input2.value + '&NoKamar=\'' + noKamarFormatted;
+                var headerData = 'action=PostIDS&IDS=' + item.IDS + '&StatusSantri=' + selectElement.value + '&Daerah=' + input2.value + '&NoKamar=\'' + noKamarFormatted;
 
                 postJSON(headerData, function(response) {
                     // Tanggapi hasil respons sesuai kebutuhan Anda
