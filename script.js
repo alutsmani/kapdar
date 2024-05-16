@@ -71,6 +71,10 @@ function handleSearch() {
 
 // Fungsi untuk memuat data dari Google Sheets
 function loadData() {
+    const loader = document.getElementById('loader');
+    document.querySelector('.loader').classList.remove('hidden');
+    document.querySelector('.loader').classList.add('visible');
+
     const dataContainer = document.getElementById('dataContainer');
     dataContainer.innerHTML = '';
 
@@ -156,11 +160,21 @@ function renderData(data) {
         tbody.appendChild(th2);
 
         //Melanjutkan Ke
+        const DiniyahRow = document.createElement('tr');
+        const DiniyahLabel = document.createElement('td');
+        DiniyahLabel.textContent = 'Diniyah';
+        const DiniyahDetail = document.createElement('td');
+        DiniyahDetail.textContent = `${item.Diniyah} [${item.KelasMD}.${item.KelMD}]`;
+        DiniyahRow.appendChild(DiniyahLabel);
+        DiniyahRow.appendChild(DiniyahDetail);
+        tbody.appendChild(DiniyahRow);
+
+        //Melanjutkan Ke
         const FormalRow = document.createElement('tr');
         const FormalLabel = document.createElement('td');
         FormalLabel.textContent = 'Formal';
         const FormalDetail = document.createElement('td');
-        FormalDetail.textContent = item.Formal;
+        FormalDetail.textContent = `${item.Formal} [${item.KelasFormal}.${item.KelFormal}]`;
         FormalRow.appendChild(FormalLabel);
         FormalRow.appendChild(FormalDetail);
         tbody.appendChild(FormalRow);
@@ -202,22 +216,14 @@ function renderData(data) {
         // Data Masehi
         const MasehiRow = document.createElement('tr');
         const MasehiLabel = document.createElement('td');
-        MasehiLabel.textContent = "Tanggal daftar";
+        MasehiLabel.textContent = "TimeStamp:";
         const MasehiDetail = document.createElement('td');
-        MasehiDetail.textContent = item.Hijriyah + " H. - " + formatDate(item.Masehi) + " M.";
+        MasehiDetail.textContent = formatDate(item.TanggalUpdate);
         MasehiRow.appendChild(MasehiLabel);
         MasehiRow.appendChild(MasehiDetail);
         tbody.appendChild(MasehiRow);
 
-        // Data Pembayaran
-        const BayarRow = document.createElement('tr');
-        const BayarLabel = document.createElement('td');
-        BayarLabel.textContent = "Pembayaran";
-        const BayarDetail = document.createElement('td');
-        BayarDetail.textContent = item.Bayar_Madrasah.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-        BayarRow.appendChild(BayarLabel);
-        BayarRow.appendChild(BayarDetail);
-        tbody.appendChild(BayarRow);
+        
 
         table.appendChild(tbody);
         details.appendChild(table);
@@ -292,8 +298,11 @@ function renderData(data) {
         input2.value = item.Daerah || '';
         input3.value = item.NoKamar || '';
 
-
+        
     });
+    const loader = document.getElementById('loader');
+    document.querySelector('.loader').classList.remove('visible');
+    document.querySelector('.loader').classList.add('hidden');
 }
 
 
