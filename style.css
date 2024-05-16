@@ -1,261 +1,261 @@
 body {
-    background-image: url('https://cdn.pixabay.com/photo/2023/03/22/11/07/seeds-7869190_1280.jpg');
-    background-size:cover;
+  background-image: url('https://cdn.pixabay.com/photo/2023/03/22/11/07/seeds-7869190_1280.jpg');
+  background-size:cover;
 
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color:rgb(181, 255, 200);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color:rgb(181, 255, 200);
 }
 
 h2 {
-    text-align: center;
-    width: 80%;
-    margin-top: 60px;
-    
-    /*text-shadow: -2px -2px 0 #fff,  
-                2px -2px 0 #fff,
-                -2px 2px 0 #fff,
-                2px 2px 0 #fff; */
-    margin-left: auto;
-    margin-right: auto;
+  text-align: center;
+  width: 80%;
+  margin-top: 60px;
+  
+  /*text-shadow: -2px -2px 0 #fff,  
+              2px -2px 0 #fff,
+              -2px 2px 0 #fff,
+              2px 2px 0 #fff; */
+  margin-left: auto;
+  margin-right: auto;
 }
 .logo-container {
-    position: absolute;
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999; /* Menetapkan z-index agar gambar berada di atas semua elemen */
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999; /* Menetapkan z-index agar gambar berada di atas semua elemen */
 }
 
 .bg-utama{
-    background: linear-gradient(320deg, #ffffffc4, #ffffffcc);
-    border-radius: 10px; /* Sudut sudut kotak */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Bayangan */
-    padding: 20px; /* Ukuran padding yang benar */
-    width: 95%; /* Lebar kotak */
-    max-width: 600px;
-    margin:auto; /* Pusatkan kotak secara horizontal */
-    flex-direction: column;
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: hidden;
-    transition: max-height 1s ease-out, top 0.8s ease-in-out;
-    margin-bottom: 50px;
+  background: linear-gradient(320deg, #ffffffc4, #ffffffcc);
+  border-radius: 10px; /* Sudut sudut kotak */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Bayangan */
+  padding: 20px; /* Ukuran padding yang benar */
+  width: 95%; /* Lebar kotak */
+  max-width: 600px;
+  margin:auto; /* Pusatkan kotak secara horizontal */
+  flex-direction: column;
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  transition: max-height 1s ease-out, top 0.8s ease-in-out;
+  margin-bottom: 50px;
 }
 
 .container {
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    padding: 0px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    width: 95%;
-    transition: max-height 1s ease-out, top 0.8s ease-in-out;
-    color: #757575;
-    background-color: #ffffff;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 0px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 95%;
+  transition: max-height 1s ease-out, top 0.8s ease-in-out;
+  color: #757575;
+  background-color: #ffffff;
 }
 .container h3 {
-    cursor: pointer;
-    display: flex; /* Menggunakan flexbox untuk mengatur posisi */
-    flex-direction: column; /* Mengatur posisi IDS di bawah Nama */
-    padding-left: 20px;
-    padding-right: 20px;
+  cursor: pointer;
+  display: flex; /* Menggunakan flexbox untuk mengatur posisi */
+  flex-direction: column; /* Mengatur posisi IDS di bawah Nama */
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .details {
-    display: none;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+  display: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 
 }
 .details table {
-    width: 100%;
-    margin-top: 0px;
+  width: 100%;
+  margin-top: 0px;
 }
 .details th {
-    text-align: left;
-    vertical-align: top;
-    color: #494949;
-    font-size: 12px;
-    min-width: 30px;
-    display: none;
+  text-align: left;
+  vertical-align: top;
+  color: #494949;
+  font-size: 12px;
+  min-width: 30px;
+  display: none;
 }
 .details td {
-    text-align: left;
-    vertical-align: top;
-    color: #888888;
-    font-size: 12px;
+  text-align: left;
+  vertical-align: top;
+  color: #888888;
+  font-size: 12px;
 }
 
 
 .nama {
-    font-size: 18px; /* Atur ukuran font Nama */
-    margin-bottom: 5px; /* Jarak antara Nama dan IDS */
-    color: #000000;
+  font-size: 18px; /* Atur ukuran font Nama */
+  margin-bottom: 5px; /* Jarak antara Nama dan IDS */
+  color: #000000;
 }
 
 .nokamar {
-    font-size: 12px;
-    display:none;
-    
+  font-size: 12px;
+  display:none;
+  
 }
 
 .ids {
-    font-size: 12px; /* Atur ukuran font IDS */
+  font-size: 12px; /* Atur ukuran font IDS */
 }
 
 .input-container {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    display: none; /* Sembunyikan input-container secara default */
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  display: none; /* Sembunyikan input-container secara default */
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 .input-container input, 
 .input-container select {
-    margin-right: 5px;
-    border-radius: 4px;
-    height: 30px;
-    border-width: 1px;
-    border-color: #757575;
+  margin-right: 5px;
+  border-radius: 4px;
+  height: 30px;
+  border-width: 1px;
+  border-color: #757575;
 }
 
 .submit-button {
-    height: 30px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  height: 30px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 
 
 
 .cool-box {
-    background: linear-gradient(320deg, #000000, #116301);
-    border: 2px solid #016606;
-    border-radius: 10px; /* Sudut sudut kotak */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Bayangan */
-    padding: 20px; /* Ukuran padding yang benar */
-    width: 80%; /* Lebar kotak */
-    max-width: 300px;
-    margin: auto; /* Pusatkan kotak secara horizontal */
-    flex-direction: column;
-    
-    position:static;
-    overflow: hidden;
-    transition: max-height 1s ease-out, top 0.8s ease-in-out;
-    margin-bottom: 50px;
+  background: linear-gradient(320deg, #000000, #116301);
+  border: 2px solid #016606;
+  border-radius: 10px; /* Sudut sudut kotak */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Bayangan */
+  padding: 20px; /* Ukuran padding yang benar */
+  width: 80%; /* Lebar kotak */
+  max-width: 300px;
+  margin: auto; /* Pusatkan kotak secara horizontal */
+  flex-direction: column;
+  
+  position:static;
+  overflow: hidden;
+  transition: max-height 1s ease-out, top 0.8s ease-in-out;
+  margin-bottom: 50px;
 }
 
 .cool-box p {
-    font-weight: bold;
-    font-size:smaller;
-    background-color: #ffffff00;
-    color: #ffffff;
-    padding-bottom: 0px;
-    padding-top: 20px;
+  font-weight: bold;
+  font-size:smaller;
+  background-color: #ffffff00;
+  color: #ffffff;
+  padding-bottom: 0px;
+  padding-top: 20px;
 }
 
-.cool-box label {
-    color: #888888;
-    font-weight: normal;
-    font-size: smaller;
-    padding-top: 10px;
-}
 
 .Heading3 {
-    text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color:#0502b4;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color:#0502b4;
 }
 
-.Biodata{
-    background-color: #ffffff;
-    align-items: center;
-    margin: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    max-width: 400px;
-    
-    transition: opacity 0.5s;
-}
 
 
 
 .visible {
-    display: block;
-    opacity: 1;
+  display: block;
+  opacity: 1;
 }
 
 .hidden {
-    display: none !important;
-    opacity: 0;
+  display: none !important;
+  opacity: 0;
 }
 
 
 .TTL{
-    background-color: #dadada00;
-    display:inline-flex;
-    justify-content:space-between; /* Untuk memberikan jarak antara elemen-elemen di dalam .ttl */
+  background-color: #dadada00;
+  display:inline-flex;
+  justify-content:space-between; /* Untuk memberikan jarak antara elemen-elemen di dalam .ttl */
 }
 
 
 .TTL button {
-    background-color:#07971a;
-    color: white;
-    width: 80px;
+  background-color:#07971a;
+  color: white;
+  width: 80px;
 }        
 
 #NoKamar {
-    width: 60px;
+  width: 60px;
 }
 
 /* HTML: <div class="loader"></div> */
-#loader {
-    width: 100%;
-    height: 20px;
-    background: 
-        linear-gradient(#07971a 0 0) left -40px top 0/40px 20px,
-        linear-gradient(#ddd 0 0) center/100% 50%; 
-    background-repeat: no-repeat;
-    animation: l5 1s infinite linear;
-    }
-    @keyframes l5 {
-    100% {background-position: right -40px top 0,center}
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-color: #ccc #0000;
+  animation: l16 1s infinite linear;
 }
+.loader::before,
+.loader::after {    
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+}
+.loader::before {
+  border-color: #f03355 #0000;
+  animation: inherit; 
+  animation-duration: .5s;
+  animation-direction: reverse;
+}
+.loader::after {
+  margin: 8px;
+}
+@keyframes l16 { 
+  100%{transform: rotate(1turn)}
+}
+
+
 
 /* Gaya mode terang untuk semua dropdown */
 select::-webkit-calendar-picker-indicator {
-    color: #0a0a0a; /* Warna teks pada mode gelap */
-    background-color: #f7f7f7; /* Warna latar belakang pada mode gelap */
+  color: #0a0a0a; /* Warna teks pada mode gelap */
+  background-color: #f7f7f7; /* Warna latar belakang pada mode gelap */
 }
 
 /* Gaya mode gelap untuk semua dropdown */
 @media (prefers-color-scheme: dark) {
-    select::-webkit-calendar-picker-indicator {
-        color: #fff; /* Warna teks pada mode gelap */
-        background-color: #242424; /* Warna latar belakang pada mode gelap */
-    }
+  select::-webkit-calendar-picker-indicator {
+      color: #fff; /* Warna teks pada mode gelap */
+      background-color: #242424; /* Warna latar belakang pada mode gelap */
+  }
 }
 
 #Judul{
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #example {
-    background-color: white; /* Memberikan latar belakang putih pada tabel */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada tabel */
-    
+  background-color: white; /* Memberikan latar belakang putih pada tabel */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada tabel */
+  
 }
-
