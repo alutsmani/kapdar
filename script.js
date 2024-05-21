@@ -1,8 +1,9 @@
 // Fungsi untuk mengirim data ke Google Sheets menggunakan metode doPost di Apps Script
 function postJSON(header, callback) {
     // Link Santri Baru
-    var url = "https://script.google.com/macros/s/AKfycbxSKqefJtNe16dnsnnGh_t5EyvdfHuQvFOG5vKVtgBrqdU1VhK1d6rMAmgklITgBkyojQ/exec";
-
+    var url = "https://script.google.com/macros/s/AKfycbwrsqq3HnTZboySMizPefTYVlq71DUSboCWAjaGAk4A_E98DEQVrci1mP6X5hBSkO1rZg/exec";
+    // Domisili = 
+    // Santri = https://script.google.com/macros/s/AKfycbxSKqefJtNe16dnsnnGh_t5EyvdfHuQvFOG5vKVtgBrqdU1VhK1d6rMAmgklITgBkyojQ/exec
     var xmlhttp = new XMLHttpRequest();
 
     // Handle response asynchronously
@@ -67,10 +68,42 @@ function handleSearch() {
 
 }
 
+function handleSearchDomisini() {
+    const searchPPSA = document.getElementById('CariPPSA').options[document.getElementById('CariPPSA').selectedIndex].textContent.toLowerCase();
+    const searchText = document.getElementById('CariDaerah').value.toLowerCase(); // Ambil teks nama dan ubah menjadi huruf kecil
 
+    const containers = document.querySelectorAll('.containerDomisili'); // Ambil semua kontainer
+    const filteredEntries = []; // Array untuk menyimpan entri yang sesuai dengan pencarian
+    
+
+    // Iterasi melalui setiap kontainer
+    containers.forEach(container => {
+        const title = container.querySelector('h3');
+        const nama = title.querySelector('.nama').textContent.toLowerCase(); // Ambil teks nama dan ubah menjadi huruf kecil
+        const PPSA = title.querySelector('.PPSA').textContent.toLowerCase();
+        
+        // Periksa apakah teks pencarian ada dalam teks nama
+        if (nama.includes(searchText + '.') &&
+            PPSA.includes(searchPPSA)) {
+
+            container.style.display = 'block'; // Tampilkan kontainer jika cocok dengan pencarian
+            filteredEntries.push(container); // Tambahkan kontainer ke dalam array entri yang difilter
+
+            
+        } else {
+            container.style.display = 'none'; // Sembunyikan kontainer jika tidak cocok dengan pencarian
+        }
+    });
+    
+ 
+}
 
 // Fungsi untuk memuat data dari Google Sheets
 function loadData() {
+    const loader = document.getElementById('loader');
+    document.querySelector('.loader').classList.remove('hidden');
+    document.querySelector('.loader').classList.add('visible');
+
     const dataContainer = document.getElementById('dataContainer');
     dataContainer.innerHTML = '';
 
@@ -93,11 +126,41 @@ function loadData() {
         .then(data => {
             renderData(data.data); // Ubah dari data menjadi data.data
             handleSearch()
+            console.log(data)
         })
         .catch(error => console.error('Error fetching data:', error));
 }
 
 
+// Fungsi untuk memuat data dari Google Sheets
+function loadDataDomisili() {
+    const loader = document.getElementById('loaderSideBar');
+    loader.classList.remove('hidden');
+    loader.classList.add('visible');
+
+    const dataContainer = document.getElementById('dataContainerSideBar');
+    dataContainer.innerHTML = '';
+
+    // Mendapatkan nilai terpilih dari elemen select
+    const CariPPSA = document.getElementById('CariPPSA').value;
+    const CariDaerah = document.getElementById('CariDaerah').value;
+
+    // URL default jika pilihan adalah "Semua"
+    let url = 'https://script.google.com/macros/s/AKfycbwrsqq3HnTZboySMizPefTYVlq71DUSboCWAjaGAk4A_E98DEQVrci1mP6X5hBSkO1rZg/exec';
+    
+    // Jika pilihan bukan "Semua", tambahkan parameter baru ke URL
+    //if (CariPPSA !== 'Semua') {
+        //url += '?action=CariDaerah&PPSA=' + encodeURIComponent(CariPPSA) + '&Daerah=' + encodeURIComponent(CariDaerah);
+    //}
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            renderDataSideBar(data.data); // Ubah dari data menjadi data.data
+            handleSearchDomisini()
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
 
 
 // Fungsi untuk merender data ke dalam HTML
@@ -156,11 +219,21 @@ function renderData(data) {
         tbody.appendChild(th2);
 
         //Melanjutkan Ke
+        const DiniyahRow = document.createElement('tr');
+        const DiniyahLabel = document.createElement('td');
+        DiniyahLabel.textContent = 'Diniyah';
+        const DiniyahDetail = document.createElement('td');
+        DiniyahDetail.textContent = `${item.Diniyah} [${item.KelasMD}.${item.KelMD}]`;
+        DiniyahRow.appendChild(DiniyahLabel);
+        DiniyahRow.appendChild(DiniyahDetail);
+        tbody.appendChild(DiniyahRow);
+
+        //Melanjutkan Ke
         const FormalRow = document.createElement('tr');
         const FormalLabel = document.createElement('td');
         FormalLabel.textContent = 'Formal';
         const FormalDetail = document.createElement('td');
-        FormalDetail.textContent = item.Formal;
+        FormalDetail.textContent = `${item.Formal} [${item.KelasFormal}.${item.KelFormal}]`;
         FormalRow.appendChild(FormalLabel);
         FormalRow.appendChild(FormalDetail);
         tbody.appendChild(FormalRow);
@@ -202,23 +275,14 @@ function renderData(data) {
         // Data Masehi
         const MasehiRow = document.createElement('tr');
         const MasehiLabel = document.createElement('td');
-        MasehiLabel.textContent = "Tanggal daftar";
+        MasehiLabel.textContent = "TimeStamp:";
         const MasehiDetail = document.createElement('td');
-        MasehiDetail.textContent = item.Hijriyah + " H. - " + formatDate(item.Masehi) + " M.";
+        MasehiDetail.textContent = formatDate(item.TanggalUpdate);
         MasehiRow.appendChild(MasehiLabel);
         MasehiRow.appendChild(MasehiDetail);
         tbody.appendChild(MasehiRow);
 
-        // Data Pembayaran
-        const BayarRow = document.createElement('tr');
-        const BayarLabel = document.createElement('td');
-        BayarLabel.textContent = "Pembayaran";
-        const BayarDetail = document.createElement('td');
-        BayarDetail.textContent = item.Bayar_Madrasah.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-        BayarRow.appendChild(BayarLabel);
-        BayarRow.appendChild(BayarDetail);
-        tbody.appendChild(BayarRow);
-
+        
         table.appendChild(tbody);
         details.appendChild(table);
 
@@ -227,7 +291,7 @@ function renderData(data) {
         inputContainer.classList.add('input-container');
 
         const selectElement = document.createElement('select');
-        const options = ["Mukim / Mondok", "Khoriji / Nyulok", "Boyong", "Guru Tugas", "Deleted"];
+        const options = ["Mukim / Mondok", "Khoriji / Nyulok", "Boyong", "Guru Tugas", "Deleted", "Pengurus", "Alumni"];
         // Iterasi melalui array pilihan dan menambahkan setiap pilihan ke dalam select
         options.forEach(option => {
             const optionElement = document.createElement('option');
@@ -247,6 +311,17 @@ function renderData(data) {
         input3.placeholder = 'No';
         input3.style.width = '50px';
 
+        const selectElement1 = document.createElement('select');
+        const options1 = ["", "Ketua Kamar", "Khodam"];
+        // Iterasi melalui array pilihan dan menambahkan setiap pilihan ke dalam select
+        options1.forEach(option1 => {
+            const optionElement1 = document.createElement('option');
+            optionElement1.value = option1; // Nilai yang akan dikirim saat dipilih
+            optionElement1.textContent = option1; // Teks yang akan ditampilkan dalam opsi
+            selectElement1.appendChild(optionElement1); // Menambahkan opsi ke dalam select
+        });
+
+
         const submitButton = document.createElement('button');
         submitButton.classList.add('submit-button');
         submitButton.textContent = 'Kirim';
@@ -258,8 +333,16 @@ function renderData(data) {
         submitButton.addEventListener('click', function() {
             try {
                 let noKamarFormatted = String(input3.value).padStart(2, '0');
-                var headerData = 'IDS=' + item.IDS + '&StatusSantri=' + selectElement.value + '&Daerah=' + input2.value + '&NoKamar=\'' + noKamarFormatted;
-
+                let PPSA = item.IDS.startsWith('1') ? 'Banin' : 'Banat';
+                var headerData = 'action=PostKamar&PPSA=' + PPSA +
+                                '&IDS=' + item.IDS + 
+                                '&KetuaKamar=' + item.Nama +
+                                '&IDK=' +  item.IDS[0] + input2.value + noKamarFormatted +
+                                '&StatusSantri=' + selectElement.value + 
+                                '&Daerah=' + input2.value + 
+                                '&NoKamar=\'' + noKamarFormatted +
+                                '&Jabatan=' + selectElement1.value;
+                console.log(headerData)
                 postJSON(headerData, function(response) {
                     // Tanggapi hasil respons sesuai kebutuhan Anda
                     console.log(response);
@@ -279,6 +362,7 @@ function renderData(data) {
         inputContainer.appendChild(selectElement);
         inputContainer.appendChild(input2);
         inputContainer.appendChild(input3);
+        inputContainer.appendChild(selectElement1);
         
         inputContainer.appendChild(submitButton);
         inputContainer.appendChild(label);
@@ -291,15 +375,68 @@ function renderData(data) {
         selectElement.value = item.StatusSantri || '';
         input2.value = item.Daerah || '';
         input3.value = item.NoKamar || '';
+        selectElement1.value = item.Jabatan || '';
 
-
+        
+        
     });
+    const loader = document.getElementById('loader');
+    loader.classList.remove('visible');
+    loader.classList.add('hidden');
 }
+
+
+// Render data untuk sidebar
+// Fungsi untuk merender data ke dalam HTML
+function renderDataSideBar(data) {
+    const dataContainer = document.getElementById('dataContainerSideBar');
+    dataContainer.innerHTML = '';
+
+    data.forEach(item => {
+        const container = document.createElement('div');
+        container.classList.add('containerDomisili');
+
+        const title = document.createElement('h3');
+
+        const namaSpan = document.createElement('span');
+        namaSpan.classList.add('nama');
+        namaSpan.textContent = item.Daerah + '.' + String(item.NoKamar).padStart(2, '0');
+
+        const PPSASpan = document.createElement('span');
+        PPSASpan.classList.add('PPSA');
+        PPSASpan.textContent = item.PPSA;
+
+        const idsSpan = document.createElement('span');
+        idsSpan.classList.add('ids');
+        idsSpan.textContent = item.KetuaKamar;
+
+
+
+        // Menambahkan spasi di antara elemen span
+        title.appendChild(namaSpan);
+        title.appendChild(document.createTextNode(' ')); // Tambahkan spasi di antara elemen
+        title.appendChild(PPSASpan);
+        title.appendChild(document.createTextNode(' ')); // Tambahkan spasi di antara elemen
+        title.appendChild(idsSpan);
+
+        container.appendChild(title);
+        dataContainer.appendChild(container);
+    });
+
+    // Memperbaiki pemilihan elemen loader
+    const loader = document.getElementById('loaderSideBar');
+    loader.classList.remove('visible');
+    loader.classList.add('hidden');
+}
+
+
+
 
 
 // Memanggil fungsi loadData() saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     //loadData();
+    loadDataDomisili();
 });
 
 function formatDate(inputDate) {
@@ -315,4 +452,16 @@ function formatDate(inputDate) {
     const formattedDate = `${day}/${month}/${year}`;
     
     return formattedDate;
+}
+
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var content = document.getElementById('content');
+    
+    if (sidebar && content) {
+        sidebar.classList.toggle('active');
+        content.classList.toggle('active');
+    } else {
+        console.error('Sidebar or content element not found');
+    }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,27 +25,35 @@
       href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"
     />
 
-    <script src="https://alutsmani.github.io/kapdar/script.js"></script>
-    <link rel="stylesheet" href="https://alutsmani.github.io/kapdar/style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Tag link untuk favicon -->
-    <link rel="icon" href="Icon.png" type="image/x-icon" />
+    <link rel="icon" href="https://alutsmani.github.io/Kop.png" type="image/x-icon" />
     <!-- Tag meta untuk gambar ketika dibagikan di media sosial -->
-    <meta property="og:image" content="Icon.png" />
-    
+    <meta property="og:image" content="https://alutsmani.github.io/Kop.png" />
+
     <title>Santri</title>
-  </head>
-  <body>
+
+    
+</head>
+<body>
+
+    
     <br>
-    <div class="logo-container ">
-        <img src="https://alutsmani.github.io/Kop.png" width="120" alt="icon">
-    </div>    
+    
     <br>
     <div class="bg-utama">
         <h2>Database Santri</h2>
 
         <div class="cool-box" id="KotakLogin">
-            <select id="CariPPSA" name="CariPPSA" class="form-control mb-2">
+            <select id="CariPPSA" name="CariPPSA" class="form-control mb-2" onchange="handleSearchDomisini()">
                 <option value="1">Banin</option>
                 <option value="2">Banat</option>
             </select>
@@ -57,11 +65,12 @@
                 <option value="Boyong">Boyong</option>
                 <option value="Guru Tugas">Guru Tugas</option>
                 <option value="Deleted">Deleted</option>
+                <option value="Pengurus">Pengurus</option>
+                <option value="Alumni">Alumni</option>
             </select>
 
-            
             <div class="TTL">
-                <select id="CariDaerah" name="CariDaerah" class="form-control mb-2" >
+                <select id="CariDaerah" name="CariDaerah" class="form-control mb-2" onchange="handleSearchDomisini()">
                     <option value="">Semua</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -71,31 +80,45 @@
                     <option value="N">N</option>
                     <option value="M">M</option>
                 </select>
-                <button class="form-control mb-2" onclick="loadData()">Load</button>  
+                <button class="form-control mb-2" onclick="loadData()">Load</button>
+                <div class="loader hidden" id="loader"></div>
             </div>
-            <p> Cari sesuai Nomor Kamar & Nama</p>
+
+            <p>Cari sesuai Nomor Kamar & Nama</p>
             <div class="TTL">
                 <input type="text" id="NoKamar" class="form-control mb-2" placeholder="No" onchange="handleSearch()">
                 <input type="text" id="nama" class="form-control mb-2" placeholder="Nama" onchange="handleSearch()">
             </div>
 
             <label id="keterangan"> keterangan </label>
-            <!-- <label id="keteranganBayar"> keterangan bayar</label> -->
         </div>
 
         <div id="dataContainer"></div>
-    </div>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
-    <!-- <script type="text/javascript" src="data.json"></script> -->
-    
-  </body>
-</html>
 
+    </div>
+
+    <div class="logo-container">
+        <img src="https://alutsmani.github.io/Kop.png" width="120" alt="icon">
+    </div>
+
+
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <div class="sidebar" id="sidebar">
+        <h2>Domisili</h2>
+        <ul>
+            <li><a onclick="loadDataDomisili()">Reload Daftar Kamar</a></li>
+            <div class="loader hidden" id="loaderSideBar"></div>
+            <div id="dataContainerSideBar"></div>
+        </ul>
+        
+    </div>
+    <div class="content" id="content">
+        <p></p>
+    </div>
+
+
+    <script src="script.js"></script>
+
+    
+</body>
+</html>
