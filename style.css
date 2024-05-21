@@ -341,8 +341,9 @@ select::-webkit-calendar-picker-indicator {
 
 .toggle-btn {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 94%;
+  width: 100%;
+  left: 0px;
   font-size: 20px;
   background-color: #111;
   color: white;
