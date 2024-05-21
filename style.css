@@ -333,6 +333,7 @@ select::-webkit-calendar-picker-indicator {
   top: 94%;
   width: 100%;
   left: 0px;
+  height: 6%;
   font-size: 20px;
   background-color: #111;
   color: white;
