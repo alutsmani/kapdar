@@ -138,9 +138,6 @@ h2 {
   cursor: pointer;
 }
 
-
-
-
 .cool-box {
   background: linear-gradient(320deg, #000000, #116301);
   border: 2px solid #016606;
@@ -174,9 +171,6 @@ h2 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color:#0502b4;
 }
-
-
-
 
 .visible {
   display: block;
@@ -263,10 +257,6 @@ select::-webkit-calendar-picker-indicator {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada tabel */
   
 }
-
-
-
-
 .sidebar {
   height: 100%;
   width: 250px;
@@ -338,7 +328,6 @@ select::-webkit-calendar-picker-indicator {
     left: 50%;
   }
 }
-
 .toggle-btn {
   position: fixed;
   top: 94%;
