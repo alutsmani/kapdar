@@ -333,7 +333,8 @@ function renderData(data) {
         submitButton.addEventListener('click', function() {
             try {
                 let noKamarFormatted = String(input3.value).padStart(2, '0');
-                let PPSA = item.IDS.startsWith('1') ? 'Banin' : 'Banat';
+                let PPSA = (typeof item.IDS === 'string' && item.IDS.startsWith('1')) ? 'Banin' : 'Banat';
+
                 var headerData = 'action=PostKamar&PPSA=' + PPSA +
                                 '&IDS=' + item.IDS + 
                                 '&KetuaKamar=' + item.Nama +
