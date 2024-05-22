@@ -270,7 +270,15 @@ function renderData(data) {
         alamatRow.appendChild(alamatDetail);
         tbody.appendChild(alamatRow);
 
-
+        // Data Masehi
+        const NomorRow = document.createElement('tr');
+        const NomorLabel = document.createElement('td');
+        NomorLabel.textContent = "No HP:";
+        const NomorDetail = document.createElement('td');
+        NomorDetail.textContent = item.NoAyah;
+        NomorRow.appendChild(NomorLabel);
+        NomorRow.appendChild(NomorDetail);
+        tbody.appendChild(NomorRow);
 
         // Data Masehi
         const MasehiRow = document.createElement('tr');
