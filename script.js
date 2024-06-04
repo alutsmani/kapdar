@@ -71,55 +71,30 @@ function handleSearch() {
     const filteredCount = filteredEntries.length;
     keteranganLabel.textContent = `Menampilkan (${filteredCount}) dari ${totalEntries} data keseluruhan`;
 }
-document.getElementById('reloadButton').addEventListener('click', function() {
-    // Hapus data dari localStorage
-    localStorage.removeItem('santriData');
-    
-    // Muat ulang data dari Google Sheets
-    loadData();
-});
 
 
 // Fungsi untuk memuat data dari Google Sheets
 function loadData() {
     const loader = document.getElementById('loader');
-    loader.classList.remove('hidden');
-    loader.classList.add('visible');
+    document.querySelector('.loader').classList.remove('hidden');
+    document.querySelector('.loader').classList.add('visible');
 
     const dataContainer = document.getElementById('dataContainer');
     dataContainer.innerHTML = '';
 
-    const cachedData = localStorage.getItem('santriData');
-    if (cachedData) {
-        // Jika data ada di localStorage, gunakan data tersebut
-        const data = JSON.parse(cachedData);
-        renderData(data);
-        handleSearch();
-        console.log('Data loaded from cache');
-        loader.classList.remove('visible');
-        loader.classList.add('hidden');
-    } else {
-        // Jika tidak ada data di localStorage, fetch data dari server
-        let url = 'https://script.google.com/macros/s/AKfycbxSKqefJtNe16dnsnnGh_t5EyvdfHuQvFOG5vKVtgBrqdU1VhK1d6rMAmgklITgBkyojQ/exec';
+    // URL default jika pilihan adalah "Semua"
+    let url = 'https://script.google.com/macros/s/AKfycbxSKqefJtNe16dnsnnGh_t5EyvdfHuQvFOG5vKVtgBrqdU1VhK1d6rMAmgklITgBkyojQ/exec';
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                localStorage.setItem('santriData', JSON.stringify(data.data));
-                renderData(data.data); // Ubah dari data menjadi data.data
-                handleSearch();
-                console.log('Data fetched and cached');
-                loader.classList.remove('visible');
-                loader.classList.add('hidden');
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                loader.classList.remove('visible');
-                loader.classList.add('hidden');
-            });
-    }
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            renderData(data.data); // Ubah dari data menjadi data.data
+            handleSearch()
+            console.log(data)
+        })
+        .catch(error => console.error('Error fetching data:', error));
 }
-
 
 
 
