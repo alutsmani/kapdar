@@ -39,7 +39,7 @@
     <!-- Tag meta untuk gambar ketika dibagikan di media sosial -->
     <meta property="og:image" content="https://alutsmani.github.io/Kop.png" />
 
-    <title>Santri</title>
+    <title>Database Santri</title>
 
     
 </head>
@@ -53,12 +53,12 @@
         <h2>Database Santri</h2>
 
         <div class="cool-box" id="KotakLogin">
-            <select id="CariPPSA" name="CariPPSA" class="form-control mb-2" onchange="handleSearchDomisini()">
-                <option value="1">Banin</option>
-                <option value="2">Banat</option>
+            <select id="CariPPSA" class="form-control mb-2" onchange="handleSearch()">
+                <option value="Banin">Banin</option>
+                <option value="Banat">Banat</option>
             </select>
 
-            <select id="CariStatusSantri" name="CariStatusSantri" class="form-control mb-2">
+            <select id="CariStatusSantri" class="form-control mb-2" onchange="handleSearch()">
                 <option value="">Semua</option>
                 <option value="Mukim">Mukim</option>
                 <option value="Khoriji">Khoriji</option>
@@ -68,9 +68,9 @@
                 <option value="Pengurus">Pengurus</option>
                 <option value="Alumni">Alumni</option>
             </select>
-
+            <p>Daerah & Domisili</p>
             <div class="TTL">
-                <select id="CariDaerah" name="CariDaerah" class="form-control mb-2" onchange="handleSearchDomisini()">
+                <select id="CariDaerah" class="form-control mb-2" onchange="handleSearch()">
                     <option value="">Semua</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -80,17 +80,20 @@
                     <option value="N">N</option>
                     <option value="M">M</option>
                 </select>
-                <button class="form-control mb-2" onclick="loadData()">Load</button>
-                <div class="loader hidden" id="loader"></div>
+
+                <input type="text" id="CariNoKamar" class="form-control mb-2" placeholder="No" onchange="handleSearch()">
+                
+                <button id="reloadButton">Reload Data</button>
+
             </div>
 
-            <p>Cari sesuai Nomor Kamar & Nama</p>
+            <p>Cari sesuai Nama</p>
             <div class="TTL">
-                <input type="text" id="NoKamar" class="form-control mb-2" placeholder="No" onchange="handleSearch()">
-                <input type="text" id="nama" class="form-control mb-2" placeholder="Nama" onchange="handleSearch()">
+                
+                <input type="text" id="CariNama" class="form-control mb-2" placeholder="Nama" onchange="handleSearch()">
             </div>
 
-            <label id="keterangan"> keterangan </label>
+            <p id="keterangan"> keterangan </p>
         </div>
 
         <div id="dataContainer"></div>
@@ -110,7 +113,6 @@
             <div class="loader hidden" id="loaderSideBar"></div>
             <div id="dataContainerSideBar"></div>
         </ul>
-        <h2>----------------</h2>
         <h2>----------------</h2>
     </div>
     <div class="content" id="content">

@@ -10,20 +10,16 @@ h2 {
   text-align: center;
   width: 80%;
   margin-top: 60px;
-  
-  /*text-shadow: -2px -2px 0 #fff,  
-              2px -2px 0 #fff,
-              -2px 2px 0 #fff,
-              2px 2px 0 #fff; */
   margin-left: auto;
   margin-right: auto;
 }
+
 .logo-container {
   position: absolute;
   top: 70px;
   left: 70%;
   transform: translateX(-50%);
-  /*z-index: 999;  Menetapkan z-index agar gambar berada di atas semua elemen */
+  z-index: 999; /* Menetapkan z-index agar gambar berada di atas semua elemen */
 }
 
 .bg-utama{
@@ -47,6 +43,8 @@ h2 {
   padding-bottom: 100px;
 }
 
+
+/* Mengatur Isi di dalam Data*/
 .container, .containerDomisili {
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -75,18 +73,20 @@ h2 {
   padding-bottom: 0px;
 
 }
+
 .details table {
   width: 100%;
   margin-top: 0px;
 }
+
 .details th {
   text-align: left;
-  vertical-align: top;
   color: #494949;
   font-size: 12px;
   min-width: 30px;
-  display: none;
+  display: block;
 }
+
 .details td {
   text-align: left;
   vertical-align: top;
@@ -101,14 +101,13 @@ h2 {
   color: #000000;
 }
 
-.nokamar, .PPSA {
+.domisili, .statussantri {
   font-size: 12px;
-  display:none;
-  
+  display:block;
 }
 
 
-.ids, .PPSA {
+.ids {
   font-size: 12px; /* Atur ukuran font IDS */
 }
 
@@ -138,6 +137,9 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
 }
+
+
+
 
 .cool-box {
   background: linear-gradient(320deg, #000000, #116301);
@@ -173,6 +175,7 @@ h2 {
   color:#0502b4;
 }
 
+
 .visible {
   display: block;
   opacity: 1;
@@ -197,38 +200,8 @@ h2 {
   width: 80px;
 }        
 
-#NoKamar {
-  width: 60px;
-}
 
-/* HTML: <div class="loader"></div> */
-/* HTML: <div class="loader"></div> */
-.loader {
-  width: 50px;
-  aspect-ratio: 1;
-  display: grid;
-  border: 4px solid #0000;
-  border-radius: 50%;
-  border-color: #ccc #0000;
-  animation: l16 1s infinite linear;
-}
-.loader::before,
-.loader::after {    
-  content: "";
-  grid-area: 1/1;
-  margin: 2px;
-  border: inherit;
-  border-radius: 50%;
-}
-.loader::before {
-  border-color: #f03355 #0000;
-  animation: inherit; 
-  animation-duration: .5s;
-  animation-direction: reverse;
-}
-.loader::after {
-  margin: 8px;
-}
+
 @keyframes l16 { 
   100%{transform: rotate(1turn)}
 }
@@ -258,6 +231,10 @@ select::-webkit-calendar-picker-indicator {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan pada tabel */
   
 }
+
+
+
+
 .sidebar {
   height: 100%;
   width: 250px;
@@ -266,7 +243,7 @@ select::-webkit-calendar-picker-indicator {
   left: 0;
   background-color: #111;
   padding-top: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 200px;
   transition: transform 0.3s ease;
   overflow-y: auto;
 }
@@ -330,6 +307,7 @@ select::-webkit-calendar-picker-indicator {
     left: 50%;
   }
 }
+
 .toggle-btn {
   position: fixed;
   top: 92%;

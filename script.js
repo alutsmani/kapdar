@@ -34,133 +34,93 @@ function postJSON(header, callback) {
 }
 
 function handleSearch() {
-    const searchNoKamar = document.getElementById('NoKamar').value.toLowerCase();
-    const searchText = document.getElementById('nama').value.toLowerCase(); // Ambil teks nama dan ubah menjadi huruf kecil
+    // Mendapatkan nilai terpilih dari elemen select
+    const CariPPSA = document.getElementById('CariPPSA').value.toLowerCase();
+    const CariStatusSantri = document.getElementById('CariStatusSantri').value.toLowerCase();
+    const CariDaerah = document.getElementById('CariDaerah').value.toLowerCase();
+    const CariNoKamar = document.getElementById('CariNoKamar').value.toLowerCase();
+    const CariNama = document.getElementById('CariNama').value.toLowerCase();
 
     const containers = document.querySelectorAll('.container'); // Ambil semua kontainer
     const filteredEntries = []; // Array untuk menyimpan entri yang sesuai dengan pencarian
-    
 
     // Iterasi melalui setiap kontainer
     containers.forEach(container => {
-        const title = container.querySelector('h3');
-        const nama = title.querySelector('.nama').textContent.toLowerCase(); // Ambil teks nama dan ubah menjadi huruf kecil
-        const nokamar = title.querySelector('.nokamar').textContent.toLowerCase();
-        
+        const nama = container.querySelector('.nama').textContent.toLowerCase();
+        const ppsa = container.querySelector('.ids').textContent.toLowerCase().startsWith('1') ? 'banin' : 'banat';
+        const statussantri = container.querySelector('.statussantri').textContent.toLowerCase();
+        const domisili = container.querySelector('.domisili').textContent.toLowerCase();
+
         // Periksa apakah teks pencarian ada dalam teks nama
-        if (nama.includes(searchText) &&
-            nokamar.includes(searchNoKamar)) {
+        if (nama.includes(CariNama) &&
+            ppsa.startsWith(CariPPSA) &&
+            statussantri.includes(CariStatusSantri) &&
+            domisili.includes(CariDaerah) &&
+            domisili.includes(CariNoKamar)) {
 
             container.style.display = 'block'; // Tampilkan kontainer jika cocok dengan pencarian
             filteredEntries.push(container); // Tambahkan kontainer ke dalam array entri yang difilter
-
-            
         } else {
             container.style.display = 'none'; // Sembunyikan kontainer jika tidak cocok dengan pencarian
         }
     });
-    
+
     // Update label keterangan dengan informasi jumlah entri yang difilter
     const keteranganLabel = document.getElementById('keterangan');
     const totalEntries = containers.length;
     const filteredCount = filteredEntries.length;
     keteranganLabel.textContent = `Menampilkan (${filteredCount}) dari ${totalEntries} data keseluruhan`;
-
 }
-
-function handleSearchDomisini() {
-    const searchPPSA = document.getElementById('CariPPSA').options[document.getElementById('CariPPSA').selectedIndex].textContent.toLowerCase();
-    const searchText = document.getElementById('CariDaerah').value.toLowerCase(); // Ambil teks nama dan ubah menjadi huruf kecil
-
-    const containers = document.querySelectorAll('.containerDomisili'); // Ambil semua kontainer
-    const filteredEntries = []; // Array untuk menyimpan entri yang sesuai dengan pencarian
+document.getElementById('reloadButton').addEventListener('click', function() {
+    // Hapus data dari localStorage
+    localStorage.removeItem('santriData');
     
+    // Muat ulang data dari Google Sheets
+    loadData();
+});
 
-    // Iterasi melalui setiap kontainer
-    containers.forEach(container => {
-        const title = container.querySelector('h3');
-        const nama = title.querySelector('.nama').textContent.toLowerCase(); // Ambil teks nama dan ubah menjadi huruf kecil
-        const PPSA = title.querySelector('.PPSA').textContent.toLowerCase();
-        
-        // Periksa apakah teks pencarian ada dalam teks nama
-        if (nama.includes(searchText + '.') &&
-            PPSA.includes(searchPPSA)) {
-
-            container.style.display = 'block'; // Tampilkan kontainer jika cocok dengan pencarian
-            filteredEntries.push(container); // Tambahkan kontainer ke dalam array entri yang difilter
-
-            
-        } else {
-            container.style.display = 'none'; // Sembunyikan kontainer jika tidak cocok dengan pencarian
-        }
-    });
-    
- 
-}
 
 // Fungsi untuk memuat data dari Google Sheets
 function loadData() {
     const loader = document.getElementById('loader');
-    document.querySelector('.loader').classList.remove('hidden');
-    document.querySelector('.loader').classList.add('visible');
+    loader.classList.remove('hidden');
+    loader.classList.add('visible');
 
     const dataContainer = document.getElementById('dataContainer');
     dataContainer.innerHTML = '';
 
-    // Mendapatkan nilai terpilih dari elemen select
-    const CariPPSA = document.getElementById('CariPPSA').value;
-    const CariStatusSantri = document.getElementById('CariStatusSantri').value;
-    const CariDaerah = document.getElementById('CariDaerah').value;
+    const cachedData = localStorage.getItem('santriData');
+    if (cachedData) {
+        // Jika data ada di localStorage, gunakan data tersebut
+        const data = JSON.parse(cachedData);
+        renderData(data);
+        handleSearch();
+        console.log('Data loaded from cache');
+        loader.classList.remove('visible');
+        loader.classList.add('hidden');
+    } else {
+        // Jika tidak ada data di localStorage, fetch data dari server
+        let url = 'https://script.google.com/macros/s/AKfycbxSKqefJtNe16dnsnnGh_t5EyvdfHuQvFOG5vKVtgBrqdU1VhK1d6rMAmgklITgBkyojQ/exec';
 
-    // URL default jika pilihan adalah "Semua"
-    let url = 'https://script.google.com/macros/s/AKfycbxSKqefJtNe16dnsnnGh_t5EyvdfHuQvFOG5vKVtgBrqdU1VhK1d6rMAmgklITgBkyojQ/exec';
-
-    // Jika pilihan bukan "Semua", tambahkan parameter baru ke URL
-    if (CariPPSA !== 'Semua') {
-        url += '?action=CariDaerah&IDS=' + encodeURIComponent(CariPPSA) + '&StatusSantri=' + encodeURIComponent(CariStatusSantri) + '&Daerah=' + encodeURIComponent(CariDaerah);
-
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('santriData', JSON.stringify(data.data));
+                renderData(data.data); // Ubah dari data menjadi data.data
+                handleSearch();
+                console.log('Data fetched and cached');
+                loader.classList.remove('visible');
+                loader.classList.add('hidden');
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                loader.classList.remove('visible');
+                loader.classList.add('hidden');
+            });
     }
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            renderData(data.data); // Ubah dari data menjadi data.data
-            handleSearch()
-            console.log(data)
-        })
-        .catch(error => console.error('Error fetching data:', error));
 }
 
 
-// Fungsi untuk memuat data dari Google Sheets
-function loadDataDomisili() {
-    const loader = document.getElementById('loaderSideBar');
-    loader.classList.remove('hidden');
-    loader.classList.add('visible');
-
-    const dataContainer = document.getElementById('dataContainerSideBar');
-    dataContainer.innerHTML = '';
-
-    // Mendapatkan nilai terpilih dari elemen select
-    const CariPPSA = document.getElementById('CariPPSA').value;
-    const CariDaerah = document.getElementById('CariDaerah').value;
-
-    // URL default jika pilihan adalah "Semua"
-    let url = 'https://script.google.com/macros/s/AKfycbwrsqq3HnTZboySMizPefTYVlq71DUSboCWAjaGAk4A_E98DEQVrci1mP6X5hBSkO1rZg/exec';
-    
-    // Jika pilihan bukan "Semua", tambahkan parameter baru ke URL
-    //if (CariPPSA !== 'Semua') {
-        //url += '?action=CariDaerah&PPSA=' + encodeURIComponent(CariPPSA) + '&Daerah=' + encodeURIComponent(CariDaerah);
-    //}
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            renderDataSideBar(data.data); // Ubah dari data menjadi data.data
-            handleSearchDomisini()
-        })
-        .catch(error => console.error('Error fetching data:', error));
-}
 
 
 // Fungsi untuk merender data ke dalam HTML
@@ -180,18 +140,23 @@ function renderData(data) {
         namaSpan.textContent = item.Nama;
 
         const noSpan = document.createElement('span');
-        noSpan.classList.add('nokamar');
+        noSpan.classList.add('domisili');
         // Memastikan item.NoKamar diperlakukan sebagai string
-        let noKamarString = String(item.NoKamar).padStart(2, '0');
+        let noKamarString = item.Daerah + "." + String(item.NoKamar).padStart(2, '0');
         noSpan.textContent = noKamarString;
+
+        const StatusSantri_Span = document.createElement('span');
+        StatusSantri_Span.classList.add('statussantri');
+        StatusSantri_Span.textContent = item.StatusSantri;
 
         const idsSpan = document.createElement('span');
         idsSpan.classList.add('ids');
-        idsSpan.textContent = `IDS : ${item.IDS}`;
+        idsSpan.textContent = `${item.IDS}`;
 
         // Menambahkan span ke dalam judul
         title.appendChild(namaSpan);
         title.appendChild(noSpan);
+        title.appendChild(StatusSantri_Span);
         title.appendChild(idsSpan);
 
         title.addEventListener('click', function() {
@@ -213,20 +178,20 @@ function renderData(data) {
         th1.textContent = 'Informasi';
         tbody.appendChild(th1);
 
-        // Kolom kedua: isi
-        const th2 = document.createElement('th');
-        th2.textContent = '';
-        tbody.appendChild(th2);
+        const td1 = document.createElement('td');
+        td1.textContent = '';
+        tbody.appendChild(td1);
 
-        //Melanjutkan Ke
+
+        //Diniyah
         const DiniyahRow = document.createElement('tr');
         const DiniyahLabel = document.createElement('td');
         DiniyahLabel.textContent = 'Diniyah';
-        const DiniyahDetail = document.createElement('td');
-        DiniyahDetail.textContent = `${item.Diniyah} [${item.KelasMD}.${item.KelMD}]`;
-        DiniyahRow.appendChild(DiniyahLabel);
-        DiniyahRow.appendChild(DiniyahDetail);
+        const DiniyahIsi = document.createElement('td');
+        DiniyahIsi.textContent = `${item.Diniyah} [${item.KelasMD}.${item.KelMD}]`;
         tbody.appendChild(DiniyahRow);
+        tbody.appendChild(DiniyahLabel);
+        tbody.appendChild(DiniyahIsi);
 
         //Melanjutkan Ke
         const FormalRow = document.createElement('tr');
@@ -395,57 +360,13 @@ function renderData(data) {
 }
 
 
-// Render data untuk sidebar
-// Fungsi untuk merender data ke dalam HTML
-function renderDataSideBar(data) {
-    const dataContainer = document.getElementById('dataContainerSideBar');
-    dataContainer.innerHTML = '';
-
-    data.forEach(item => {
-        const container = document.createElement('div');
-        container.classList.add('containerDomisili');
-
-        const title = document.createElement('h3');
-
-        const namaSpan = document.createElement('span');
-        namaSpan.classList.add('nama');
-        namaSpan.textContent = item.Daerah + '.' + String(item.NoKamar).padStart(2, '0');
-
-        const PPSASpan = document.createElement('span');
-        PPSASpan.classList.add('PPSA');
-        PPSASpan.textContent = item.PPSA;
-
-        const idsSpan = document.createElement('span');
-        idsSpan.classList.add('ids');
-        idsSpan.textContent = item.KetuaKamar;
-
-
-
-        // Menambahkan spasi di antara elemen span
-        title.appendChild(namaSpan);
-        title.appendChild(document.createTextNode(' ')); // Tambahkan spasi di antara elemen
-        title.appendChild(PPSASpan);
-        title.appendChild(document.createTextNode(' ')); // Tambahkan spasi di antara elemen
-        title.appendChild(idsSpan);
-
-        container.appendChild(title);
-        dataContainer.appendChild(container);
-    });
-
-    // Memperbaiki pemilihan elemen loader
-    const loader = document.getElementById('loaderSideBar');
-    loader.classList.remove('visible');
-    loader.classList.add('hidden');
-}
-
 
 
 
 
 // Memanggil fungsi loadData() saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
-    //loadData();
-    loadDataDomisili();
+    loadData();
 });
 
 function formatDate(inputDate) {
