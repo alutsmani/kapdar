@@ -19,7 +19,7 @@ h2 {
   top: 70px;
   left: 70%;
   transform: translateX(-50%);
-  z-index: 999; /* Menetapkan z-index agar gambar berada di atas semua elemen */
+  /*z-index: 999;  Menetapkan z-index agar gambar berada di atas semua elemen */
 }
 
 .bg-utama{
