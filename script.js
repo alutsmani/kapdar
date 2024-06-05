@@ -33,7 +33,13 @@ function postJSON(header, callback) {
     xmlhttp.send(header);
 }
 
+function DuaHandle() {
+    handleSearch();
+    handleSearchDomisini();
+}
+
 function handleSearch() {
+
     // Mendapatkan nilai terpilih dari elemen select
     const CariPPSA = document.getElementById('CariPPSA').value.toLowerCase();
     const CariStatusSantri = document.getElementById('CariStatusSantri').value.toLowerCase();
@@ -342,6 +348,7 @@ function renderData(data) {
 // Memanggil fungsi loadData() saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
+    loadDataDomisili();
 });
 
 function formatDate(inputDate) {

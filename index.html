@@ -53,14 +53,14 @@
         <h2>Database Santri</h2>
 
         <div class="cool-box" id="KotakLogin">
-            <select id="CariPPSA" class="form-control mb-2" onchange="handleSearch()">
+            <select id="CariPPSA" class="form-control mb-2" onchange="DuaHandle()">
                 <option value="Banin">Banin</option>
                 <option value="Banat">Banat</option>
             </select>
 
             <select id="CariStatusSantri" class="form-control mb-2" onchange="handleSearch()">
                 <option value="">Semua</option>
-                <option value="Mukim">Mukim</option>
+                <option selected value="Mukim">Mukim</option>
                 <option value="Khoriji">Khoriji</option>
                 <option value="Boyong">Boyong</option>
                 <option value="Guru Tugas">Guru Tugas</option>
@@ -70,7 +70,7 @@
             </select>
             <p>Daerah & Domisili</p>
             <div class="TTL">
-                <select id="CariDaerah" class="form-control mb-2" onchange="handleSearch()">
+                <select id="CariDaerah" class="form-control mb-2" onchange="DuaHandle()">
                     <option value="">Daerah</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -123,7 +123,7 @@
 
     
     <script src="script.js"></script>
-
+    <script src="SideBar.js"></script>
     
 </body>
 </html>
