@@ -221,7 +221,7 @@ function renderData(data) {
         const NomorLabel = document.createElement('td');
         NomorLabel.textContent = "No HP:";
         const NomorDetail = document.createElement('td');
-        NomorDetail.textContent = item.NoAyah;
+        NomorDetail.textContent = "+62 " + item.NoAyah + "/ +62 " + item.NoIbu;
         NomorRow.appendChild(NomorLabel);
         NomorRow.appendChild(NomorDetail);
         tbody.appendChild(NomorRow);
@@ -298,12 +298,18 @@ function renderData(data) {
                                 '&NoKamar=\'' + noKamarFormatted +
                                 '&Jabatan=' + selectElement1.value;
                 console.log(headerData)
+                
+
                 postJSON(headerData, function(response) {
                     // Tanggapi hasil respons sesuai kebutuhan Anda
                     console.log(response);
 
                     // Mengubah teks label menjadi "Data telah disimpan!" jika permintaan berhasil
                     label.textContent = "Data telah disimpan!";
+                    StatusSantri_Span.textContent = selectElement.value;
+                    let noKamar = input2.value + "." + String(input3.value).padStart(2, '0');
+                    noSpan.textContent = noKamar;
+                    handleSearch();
                 });
             } catch (error) {
                 // Menangani kesalahan dengan menampilkan pesan kesalahan dan mengubah warna teks label menjadi merah
@@ -339,9 +345,6 @@ function renderData(data) {
     loader.classList.remove('visible');
     loader.classList.add('hidden');
 }
-
-
-
 
 
 
